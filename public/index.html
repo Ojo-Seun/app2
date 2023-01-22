@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: rgb(200, 241, 241);
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      table {
+        width: 400px;
+        margin: auto;
+      }
+
+      th {
+        padding: 5px 0;
+        background-color: aqua;
+      }
+
+      tr {
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Docker Tutorial</h1>
+    <div id="wrapper"></div>
+    <script>
+      const fetchData = async () => {
+        const res = await fetch("http://localhost:4000/data", {
+          mode: "no-cors",
+        });
+        const data = await res.json();
+        return data;
+      };
+
+      const render = async () => {
+        const data = await fetchData();
+        console.log(data);
+
+        if (data.length > 0) {
+          return `
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${data
+                  .map(
+                    (x, index) => `<tr>
+                    <td>${x.name}</td>
+                    <td>${x.age}</td>
+                 </tr> `
+                  )
+                  .join("")}
+            </tbody>
+        </table>
+        `;
+        }
+
+        return `<h6>Error In Connection</h6>`;
+      };
+
+      const div = document.getElementById("wrapper");
+      render().then((res) => {
+        div.innerHTML = res;
+      });
+    </script>
+  </body>
+</html>
