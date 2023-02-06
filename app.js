@@ -11,7 +11,6 @@ app.get("/", (req, res) => {
     { name: "Yori", age: 35 },
     { name: "Doyong", age: 12 },
     { name: "Fury", age: 40 },
-    { name: "Rypoyu", age: 45 },
   ]);
 });
 
